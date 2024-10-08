@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(
+    onNavigateToSignUp : () -> Unit
 
 ) {
     var email by remember { mutableStateOf("") }
@@ -67,7 +68,7 @@ fun LoginScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
         Text("Don't have an account? Sign up",
-            modifier = Modifier.clickable {  })
+            modifier = Modifier.clickable { onNavigateToSignUp() })
 
         }
 
