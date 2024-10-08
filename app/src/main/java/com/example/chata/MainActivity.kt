@@ -19,13 +19,14 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val navController = rememberNavController()
+            val authViewModel = AuthViewModel()
             ChatATheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    NavigationGraph(navController = navController)
+                    NavigationGraph(navController = navController, authViewModel = authViewModel)
                 }
             }
         }

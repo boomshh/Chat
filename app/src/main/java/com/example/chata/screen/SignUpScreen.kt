@@ -22,10 +22,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType.Companion.Text
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+import com.example.chata.AuthViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SignUpScreen(
+    authViewModel: AuthViewModel,
     onNavigateToLogin: () -> Unit
 ) {
 
@@ -75,6 +77,7 @@ fun SignUpScreen(
 
         Button(
             onClick = {
+                authViewModel.signUp(email, password, firstName, lastName)
                 email = ""
                 password = ""
                 firstName = ""
