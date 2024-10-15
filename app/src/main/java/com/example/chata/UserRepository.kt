@@ -1,5 +1,6 @@
 package com.example.chata
 
+import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
@@ -17,6 +18,8 @@ class UserRepository(
             saveUserToFireStore(user)
             Result.Success(true)
         } catch (e: Exception) {
+            Log.e("UserRepository", "Error signing up", e)  // 에러 로그 출력
+
             Result.Error(e)
         }
 

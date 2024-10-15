@@ -9,24 +9,11 @@ import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.launch
 
 class AuthViewModel: ViewModel() {
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository = UserRepository(
+        FirebaseAuth.getInstance(),
+        Injection.instance()
+    )
 
-    object Injection {
-        private val instance: FirebaseFirestore by lazy {
-            FirebaseFirestore.getInstance()
-        }
-
-        fun instance() : FirebaseFirestore {
-            return instance
-        }
-    }
-
-    init {
-        userRepository = UserRepository(
-            FirebaseAuth.getInstance(),
-            Injection.instance()
-        )
-    }
 
     private val _authResult = MutableLiveData<Result<Boolean>>()
     val authResult : LiveData<Result<Boolean>> get() = _authResult
