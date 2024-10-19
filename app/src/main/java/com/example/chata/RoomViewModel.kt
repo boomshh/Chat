@@ -12,6 +12,10 @@ class RoomViewModel : ViewModel() {
     val rooms: LiveData<List<Room>> get() = _rooms
     private val roomRepository: Repository = Repository(Injection.instance())
 
+    init {
+        loadRooms()
+    }
+
     fun createRoom(name: String) {
         viewModelScope.launch {
             roomRepository.createRoom(name)

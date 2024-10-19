@@ -27,6 +27,7 @@ class UserRepository(
         auth.createUserWithEmailAndPassword(email, password).await()
         Result.Success(true)
     } catch (e: Exception) {
+        Log.e("signin", "Error signing in", e)
         Result.Error(e)
     }
 

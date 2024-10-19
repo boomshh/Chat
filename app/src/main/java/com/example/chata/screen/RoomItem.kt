@@ -21,9 +21,13 @@ fun RoomItem(room: Room) {
             .padding(8.dp),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        Text(text = room.name, fontSize = 16.sp, fontWeight = FontWeight.Normal)
+        Text(
+            text = room.name,
+            fontSize = 16.sp,
+            fontWeight = FontWeight.Normal)
         OutlinedButton(onClick = {}) {
             Text(text = "Join")
         }
     }
 }
+
