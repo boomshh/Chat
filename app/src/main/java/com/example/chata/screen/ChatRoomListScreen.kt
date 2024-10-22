@@ -26,12 +26,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.chata.Room
 import com.example.chata.RoomViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ChatRoomListScreen(
-    roomViewModel: RoomViewModel = viewModel()
+    roomViewModel: RoomViewModel = viewModel(),
+    onJoinClicked: (Room) -> Unit
 ) {
     val rooms by roomViewModel.rooms.observeAsState(emptyList())
     var showDialog by remember { mutableStateOf(false)}
@@ -47,7 +49,7 @@ fun ChatRoomListScreen(
         
         LazyColumn{
             items(rooms) {room ->
-                RoomItem(room = room)
+                RoomItem(room = room, onJoinClicked = {onJoinClicked(room)})
             }
         }
         Spacer(modifier = Modifier.height(16.dp))

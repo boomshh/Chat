@@ -34,4 +34,27 @@ class UserRepository(
     private suspend fun saveUserToFireStore(user : User) {
         fireStore.collection("users").document(user.email).set(user).await()
     }
+
+    suspend fun getCurrentUser() : Result<User> = try {
+        val uid = auth.currentUser?.email
+        if(uid != null) {
+            val userDocument =
+                fireStore.collection("user").document(uid).get().await()
+            val user = userDocument.toObject(User::class.java)
+            if(user != null) {
+                Log.d("user2", "$uid")
+                Result.Success(user)
+            } else {
+                Result.Error(Exception("User data not found"))
+            }
+        } else {
+            Result.Error(Exception("User not authenticated"))
+        }
+    } catch (e: Exception) {
+        Result.Error(e)
+    }
+
+
+
+
 }
