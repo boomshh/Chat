@@ -1,5 +1,6 @@
 package com.example.chata
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -25,8 +26,14 @@ class RoomViewModel : ViewModel() {
     fun loadRooms() {
         viewModelScope.launch {
             when(val result = roomRepository.getRooms()) {
-                is Result.Success -> _rooms.value = result.data
-                is Result.Error -> { }
+                is Result.Success -> {_rooms.postValue(result.data)
+                    Log.d("RoomViewModel", "Rooms loaded: ${result.data.size}")
+                }
+
+                is Result.Error -> {
+                    Log.e("RoomViewModel", "Error loading rooms", result.exception)
+
+                }
             }
         }
     }

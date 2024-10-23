@@ -24,7 +24,7 @@ class UserRepository(
         }
 
     suspend fun login(email: String, password: String) : Result<Boolean> = try {
-        auth.createUserWithEmailAndPassword(email, password).await()
+        auth.signInWithEmailAndPassword(email, password).await()
         Result.Success(true)
     } catch (e: Exception) {
         Log.e("signin", "Error signing in", e)
