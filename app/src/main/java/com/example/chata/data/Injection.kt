@@ -1,4 +1,4 @@
-package com.example.chata
+package com.example.chata.data
 
 import com.google.firebase.firestore.FirebaseFirestore
 

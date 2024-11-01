@@ -1,4 +1,4 @@
-package com.example.chata
+package com.example.chata.data
 
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
@@ -39,7 +39,7 @@ class UserRepository(
         val uid = auth.currentUser?.email
         if(uid != null) {
             val userDocument =
-                fireStore.collection("user").document(uid).get().await()
+                fireStore.collection("users").document(uid).get().await()
             val user = userDocument.toObject(User::class.java)
             if(user != null) {
                 Log.d("user2", "$uid")

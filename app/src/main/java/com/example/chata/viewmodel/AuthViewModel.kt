@@ -1,11 +1,13 @@
-package com.example.chata
+package com.example.chata.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.chata.data.Injection
+import com.example.chata.data.Result
+import com.example.chata.data.UserRepository
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.launch
 
 class AuthViewModel: ViewModel() {
@@ -28,5 +30,10 @@ class AuthViewModel: ViewModel() {
         viewModelScope.launch {
             _authResult.value = userRepository.login(email, password)
         }
+    }
+
+    fun isUserAuthenticated() : Boolean {
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        return currentUser != null
     }
 }

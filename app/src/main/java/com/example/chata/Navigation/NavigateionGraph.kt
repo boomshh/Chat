@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.chata.AuthViewModel
+import com.example.chata.viewmodel.AuthViewModel
 import com.example.chata.screen.ChatRoomListScreen
 import com.example.chata.screen.ChatScreen
 import com.example.chata.screen.LoginScreen
@@ -17,7 +17,7 @@ fun NavigationGraph(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Screen.SignupScreen.route
+        startDestination = Screen.LoginScreen.route
     ) {
         composable(Screen.SignupScreen.route) {
             SignUpScreen (
@@ -41,14 +41,15 @@ fun NavigationGraph(
 
         composable(Screen.ChatRoomsScreen.route) {
             ChatRoomListScreen{
-                navController.navigate("${Screen.ChatScreen.route}/${it.id}")
+                navController.navigate("${Screen.ChatScreen.route}/${it.roomId}")
             }
         }
 
         composable("${Screen.ChatScreen.route}/{roomId}") {
-            val roomId: String = it
-                .arguments?.getString("roomId") ?: ""
+            val roomId: String = it.arguments?.getString("roomId") ?: ""
             ChatScreen(roomId = roomId)
         }
     }
+
+
 }

@@ -12,7 +12,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.chata.Room
+import com.example.chata.data.Room
 
 @Composable
 fun RoomItem(room: Room, onJoinClicked: (Room) -> Unit) {

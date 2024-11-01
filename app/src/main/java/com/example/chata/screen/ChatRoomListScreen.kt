@@ -23,11 +23,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.chata.Room
-import com.example.chata.RoomViewModel
+import com.example.chata.data.Room
+import com.example.chata.viewmodel.RoomViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -102,4 +103,10 @@ fun ChatRoomListScreen(
         
         
     }
+}
+
+@Preview
+@Composable
+fun ll () {
+    ChatRoomListScreen() {}
 }

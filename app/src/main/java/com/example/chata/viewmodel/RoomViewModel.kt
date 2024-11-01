@@ -1,10 +1,14 @@
-package com.example.chata
+package com.example.chata.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.chata.data.Injection
+import com.example.chata.data.Repository
+import com.example.chata.data.Result
+import com.example.chata.data.Room
 import kotlinx.coroutines.launch
 
 class RoomViewModel : ViewModel() {
@@ -20,6 +24,7 @@ class RoomViewModel : ViewModel() {
     fun createRoom(name: String) {
         viewModelScope.launch {
             roomRepository.createRoom(name)
+            loadRooms()
         }
     }
 

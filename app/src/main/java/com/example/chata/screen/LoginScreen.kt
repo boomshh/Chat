@@ -22,8 +22,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
-import com.example.chata.AuthViewModel
-import com.example.chata.Result
+import com.example.chata.viewmodel.AuthViewModel
+import com.example.chata.data.Result
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -58,7 +58,7 @@ fun LoginScreen(
             label = { Text(text = "Password")},
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(8.dp),
             visualTransformation = PasswordVisualTransformation())
 
         Button(

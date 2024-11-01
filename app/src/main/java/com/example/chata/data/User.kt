@@ -1,4 +1,4 @@
-package com.example.chata
+package com.example.chata.data
 
 data class User(
     val firstName: String = "",

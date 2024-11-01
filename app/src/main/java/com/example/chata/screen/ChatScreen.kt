@@ -1,6 +1,7 @@
 package com.example.chata.screen
 
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -21,6 +22,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
@@ -30,12 +32,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.chata.Message
-import com.example.chata.MessageViewModel
+import com.example.chata.data.Message
 import com.example.chata.R
+import com.example.chata.viewmodel.MessageViewModel
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -45,9 +48,13 @@ import java.time.format.DateTimeFormatter
 fun ChatScreen(roomId: String,
                messageViewModel : MessageViewModel = viewModel()) {
 
-    val text = remember { mutableStateOf("") }
     val messages by messageViewModel.messages.observeAsState(emptyList())
-    messageViewModel.setRoomId(roomId)
+
+    LaunchedEffect(roomId) {
+        messageViewModel.setRoomId(roomId)
+
+    }
+    val text = remember { mutableStateOf("") }
 
     Column(
         modifier = Modifier
@@ -70,7 +77,8 @@ fun ChatScreen(roomId: String,
                 .padding(8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            BasicTextField(value = text.value,
+            BasicTextField(
+                value = text.value,
                 onValueChange = { text.value = it},
                 textStyle = TextStyle.Default.copy(fontSize = 16.sp),
                 modifier = Modifier
@@ -80,9 +88,12 @@ fun ChatScreen(roomId: String,
 
             IconButton(onClick = {
                 if(text.value.isNotEmpty()) {
+                    Log.d("ChatScreen", "Sending message: ${text.value.trim()}")
                     messageViewModel.sendMessage(text.value.trim())
                     text.value = ""
                 }
+                messageViewModel.loadMessages()
+                Log.d("ChatScreen", "Attempting to load messages after sending")
             })
 
             {
@@ -162,4 +173,10 @@ private fun formatTime(dateTime: LocalDateTime): String {
 private fun formatDate(dateTime: LocalDateTime): String {
     val formatter = DateTimeFormatter.ofPattern("MMM d, yyyy")
     return formatter.format(dateTime)
+}
+
+@Preview
+@Composable
+fun dd() {
+    ChatScreen(roomId = "3")
 }
