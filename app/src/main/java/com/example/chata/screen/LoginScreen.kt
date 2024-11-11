@@ -38,6 +38,7 @@ fun LoginScreen(
         mutableStateOf("")
     }
     val result by authViewModel.authResult.observeAsState()
+    var errorMessage by remember { mutableStateOf("") }
 
     Column(
         modifier = Modifier
@@ -61,6 +62,12 @@ fun LoginScreen(
                 .padding(8.dp),
             visualTransformation = PasswordVisualTransformation())
 
+        if(errorMessage.isNotEmpty()) {
+            Text(text = errorMessage,
+                color = androidx.compose.ui.graphics.Color.Red,
+                modifier = Modifier.padding(8.dp))
+        }
+
         Button(
             onClick = {
                       authViewModel.login(email, password)
@@ -69,12 +76,12 @@ fun LoginScreen(
                         onSignInSucess()
                     }
                     is Result.Error -> {
-
+                        errorMessage = "아이디 또는 비밀번호를 확인해주세요."
                     }
                     else -> {
-
                     }
                 }
+
 
             },
             modifier = Modifier
